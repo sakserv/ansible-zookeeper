@@ -7,11 +7,7 @@
   template: src={{ item.src }} dest="{{ zookeeper_install_dir}}/{{ item.dest }}" mode=0744
   with_items:
           - { src: 'zookeeper-config.sh.j2', dest: 'zookeeper-config.sh' }
-
-- name: Copying configuration and scripts
-  copy: src={{ item.file }} dest="{{ zookeeper_install_dir }}/{{ item.file }}"  mode={{ item.mode }}
-  with_items:
-          - { file: 'zoo.cfg', mode: '0644' }
+          - { src: 'zoo.cfg.j2', dest: 'zoo.cfg' }
 
 - name: Creating the hadoop group
   group: name=hadoop state=present gid=2000
