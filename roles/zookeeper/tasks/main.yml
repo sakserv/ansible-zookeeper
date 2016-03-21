@@ -1,3 +1,4 @@
+---
 - name: Creating install directory
   file: path={{ item.path }} state=directory mode={{ item.mode }}
   with_items:
@@ -7,6 +8,7 @@
   template: src={{ item.src }} dest="{{ zookeeper_install_dir}}/{{ item.dest }}" mode=0744
   with_items:
           - { src: 'zookeeper-config.sh.j2', dest: 'zookeeper-config.sh' }
+          - { src: 'provision-zookeeper.sh.j2', dest: 'provision-zookeeper.sh' }
           - { src: 'zoo.cfg.j2', dest: 'zoo.cfg' }
 
 - name: Creating the hadoop group
@@ -17,3 +19,6 @@
 
 - name: Creating the zookeeper user
   user: name=zookeeper uid=2003 groups=zookeeper,hadoop
+
+- name: Provision zookeeper
+  shell: "{{ zookeeper_install_dir }}/provision-zookeeper.sh"
