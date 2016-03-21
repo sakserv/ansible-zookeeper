@@ -20,3 +20,6 @@
 
 - name: Creating the zookeeper user
   user: name=zookeeper uid=2003 groups=zookeeper,hadoop
+
+- name: Start zookeeper
+  shell: "{{ zookeeper_install_dir }}/bin/zkServer.sh start"
