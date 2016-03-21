@@ -1,9 +1,9 @@
 ---
-- name: Stop zookeeper from any previous runs
+- name: Stopping zookeeper from any previous runs
   shell: "{{ zookeeper_install_dir }}/bin/zkServer.sh stop"
   ignore_errors: yes
 
-- name: Clean up install directory from previous run
+- name: Cleaning up install directory from previous run
   file: path={{ zookeeper_install_dir }} state=absent 
 
 - name: Creating install directory
@@ -11,6 +11,9 @@
 
 - name: Extract zookeeper to install dir
   shell: "tar -zxvf {{ zookeeper_archive }} -C {{ zookeeper_install_dir }} --strip-components=1"
+
+- name: Adding zookeeper bin dir to PATH
+  shell: "echo \"export PATH=\$PATH:{{ zookeeper_install_dir }}/bin\" >> /etc/profile"
 
 - name: Populating and copying configuration
   template: src={{ item.src }} dest="{{ zookeeper_install_dir}}/conf/{{ item.dest }}" mode=0744
@@ -26,5 +29,5 @@
 - name: Creating the zookeeper user
   user: name=zookeeper uid=2003 groups=zookeeper,hadoop
 
-- name: Start zookeeper
+- name: Starting zookeeper
   shell: "{{ zookeeper_install_dir }}/bin/zkServer.sh start"
