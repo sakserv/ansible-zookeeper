@@ -1,0 +1,15 @@
+set -e
+
+# Determine JAVA_HOME
+WHICH_JAVA=$(which java)
+if [ $? -ne 0 ]; then
+  echo "ERROR: Could not find java, is it installed?"
+  exit 1
+fi
+ALTERNATIVES_JAVA=$(readlink $WHICH_JAVA)
+export JAVA_HOME=$(readlink $ALTERNATIVES_JAVA | sed 's|bin/java||g')
+
+
+# Hadoop vars
+export ZK_INSTALL_DIR={{ zookeeper_install_dir }}
+export ZK_ARCHIVE=/tmp/zookeeper.tar.gz
