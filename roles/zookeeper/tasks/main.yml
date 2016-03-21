@@ -7,11 +7,9 @@
 - name: Extract zookeeper to install dir
   shell: "tar -zxvf {{ zookeeper_archive }} -C {{ zookeeper_install_dir }} --strip-components=1"
 
-- name: Populating and copying templates
-  template: src={{ item.src }} dest="{{ zookeeper_install_dir}}/{{ item.dest }}" mode=0744
+- name: Populating and copying configuration
+  template: src={{ item.src }} dest="{{ zookeeper_install_dir}}/conf/{{ item.dest }}" mode=0744
   with_items:
-          - { src: 'zookeeper-config.sh.j2', dest: 'zookeeper-config.sh' }
-          - { src: 'provision-zookeeper.sh.j2', dest: 'provision-zookeeper.sh' }
           - { src: 'zoo.cfg.j2', dest: 'zoo.cfg' }
 
 - name: Creating the hadoop group
