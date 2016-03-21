@@ -1,8 +1,13 @@
 ---
+- name: Stop zookeeper from any previous runs
+  shell: "{{ zookeeper_install_dir }}/bin/zkServer.sh stop"
+  ignore_errors: yes
+
+- name: Clean up install directory from previous run
+  file: path={{ zookeeper_install_directory }} state=absent recurse=yes
+
 - name: Creating install directory
-  file: path={{ item.path }} state=directory mode={{ item.mode }}
-  with_items:
-          - { path: "{{ zookeeper_install_dir }}", mode: '0755' }
+  file: path={{ zookeeper_install_directory }} state=directory recurse=yes
 
 - name: Extract zookeeper to install dir
   shell: "tar -zxvf {{ zookeeper_archive }} -C {{ zookeeper_install_dir }} --strip-components=1"
