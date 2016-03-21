@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+#
+# Variables
+#
+ZK_INSTALL_DIR={{ zookeeper_install_dir }}
+ZK_CONF_DIR=$ZK_INSTALL_DIR/conf
+ZK_BIN_DIR=$ZK_INSTALL_DIR/bin
+ZK_LIB_DIR=$ZK_INSTALL_DIR/lib
+ZK_ARCHIVE=/tmp/zookeeper.tar.gz
+
+#
+# Source the zookeeper-config script
+#
+. $ZK_INSTALL_DIR/zookeeper-config.sh
+
+#
+# Clean up any previous runs
+#
+if [ -d $ZK_INSTALL_DIR ]; then
+  rm -rf $ZK_INSTALL_DIR
+fi
+mkdir -p $ZK_INSTALL_DIR
+
+#
+# Install zookeeper
+#
+echo "#### Extracting zookeeper to $ZK_INSTALL_DIR"
+tar -zxvf ${ZK_ARCHIVE} -C ${ZK_INSTALL_DIR} --strip-components=1
+
+echo "#### Copying zookeeper configuration"
+mkdir -p $ZK_CONF_DIR
+for conf in "zoo.cfg"; do
+  cp $ZK_INSTALL_DIR/$conf $ZK_CONF_DIR
+done
+
+#
+# Start zookeeper
+#
+
+exit 0

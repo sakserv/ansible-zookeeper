@@ -8,8 +8,3 @@ if [ $? -ne 0 ]; then
 fi
 ALTERNATIVES_JAVA=$(readlink $WHICH_JAVA)
 export JAVA_HOME=$(readlink $ALTERNATIVES_JAVA | sed 's|bin/java||g')
-
-
-# Hadoop vars
-export ZK_INSTALL_DIR={{ zookeeper_install_dir }}
-export ZK_ARCHIVE=/tmp/zookeeper.tar.gz
