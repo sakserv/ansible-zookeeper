@@ -4,7 +4,7 @@
   ignore_errors: yes
 
 - name: Clean up install directory from previous run
-  file: path={{ zookeeper_install_dir }} state=absent recurse=yes
+  file: path={{ zookeeper_install_dir }} state=absent 
 
 - name: Creating install directory
   file: path={{ zookeeper_install_dir }} state=directory recurse=yes
