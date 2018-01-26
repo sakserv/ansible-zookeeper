@@ -1,7 +1,7 @@
 ansible_ssh_user: root 
 
-routing_network_interface: eth0 
-ansible_routing_network_interface: ansible_eth0
+routing_network_interface: enp0s8
+ansible_routing_network_interface: ansible_enp0s8
 
 zookeeper_install_dir: /usr/local/src/zookeeper
 zookeeper_archive: /tmp/zookeeper.tar.gz
